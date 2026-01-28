@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Chat app</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./src/styles/main.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <header
+        class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+      >
+        <h1 class="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
+          Chat Application
+        </h1>
+      </header>
+
+      <main>
+        <div id="chat" class="d-flex overflow-hidden">
+          <div
+            class="d-flex flex-column align-items-stretch flex-shrink-0 bg-body-tertiary border-end"
+            style="width: 380px"
+          >
+            <h2
+              class="d-flex align-items-center flex-shrink-0 p-3 border-bottom"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-chat-fill me-2"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M8 15c4.418 0 8-3.134 8-7s-3.582-7-8-7-8 3.134-8 7c0 1.76.743 3.37 1.97 4.6-.097 1.016-.417 2.13-.771 2.966-.079.186.074.394.273.362 2.256-.37 3.597-.938 4.18-1.234A9 9 0 0 0 8 15"
+                />
+              </svg>
+              <span class="fs-5 fw-semibold">Chats</span>
+            </h2>
+            <div
+              class="list-group list-group-flush border-bottom scrollarea overflow-auto"
+            >
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-3 lh-sm"
+              >
+                <div
+                  class="d-flex w-100 align-items-center justify-content-between"
+                >
+                  <strong class="mb-1">List group item heading</strong>
+                  <small class="text-body-secondary">Tues</small>
+                </div>
+                <div class="col-10 mb-1 small">
+                  Some placeholder content in a paragraph below the heading and
+                  date.
+                </div>
+              </a>
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-3 lh-sm"
+              >
+                <div
+                  class="d-flex w-100 align-items-center justify-content-between"
+                >
+                  <strong class="mb-1">List group item heading</strong>
+                  <small class="text-body-secondary">Mon</small>
+                </div>
+                <div class="col-10 mb-1 small">
+                  Some placeholder content in a paragraph below the heading and
+                  date.
+                </div>
+              </a>
+              <a
+                href="#"
+                class="list-group-item list-group-item-action py-3 lh-sm"
+                aria-current="true"
+              >
+                <div
+                  class="d-flex w-100 align-items-center justify-content-between"
+                >
+                  <strong class="mb-1">List group item heading</strong>
+                  <small class="text-body-secondary">Wed</small>
+                </div>
+                <div class="col-10 mb-1 small">
+                  Some placeholder content in a paragraph below the heading and
+                  date.
+                </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="flex-grow-1 d-flex flex-column bg-white">
+            <div class="p-3 border-bottom bg-light">
+              <h5 class="mb-0">Alice Cooper</h5>
+              <small class="text-success">Online</small>
+            </div>
+
+            <div
+              id="chat-body"
+              class="flex-grow-1 p-3 overflow-auto d-flex flex-column"
+            ></div>
+
+            <div class="p-3 border-top">
+              <div class="input-group">
+                <input
+                  type="text"
+                  id="message-input"
+                  class="form-control"
+                  placeholder="Type a message..."
+                />
+                <button class="btn btn-primary" id="send-btn">Send</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+    <script src="src/app.js" type="module"></script>
+  </body>
+</html>

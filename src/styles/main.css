@@ -1,0 +1,22 @@
+@import "./components/messages.css";
+
+#chat {
+  height: 85vh;
+}
+
+#chat-body {
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+}
+
+.scrollarea::-webkit-scrollbar,
+#chat-body::-webkit-scrollbar {
+  width: 6px;
+}
+
+.scrollarea::-webkit-scrollbar-thumb,
+#chat-body::-webkit-scrollbar-thumb {
+  background-color: #ccc;
+  border-radius: 10px;
+}
