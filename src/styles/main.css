@@ -1,4 +1,4 @@
-@import "./components/messages.css";
+@import "./components/chatBody.css";
 
 #chat {
   height: 85vh;
