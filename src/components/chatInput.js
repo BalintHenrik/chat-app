@@ -1,21 +1,20 @@
+import { loadFromStorage, saveToStorage } from "../utils/storage.js";
 import { renderMessages } from "./chatBody.js";
 import { renderSideBar } from "./sideBar.js";
 
-export function chatInput(conversations, activeChatId) {
-  console.log("Setting up chat input for conversation ID:", activeChatId);
+export function chatInput() {
   const input = document.getElementById("message-input");
   const sendBtn = document.getElementById("send-btn");
-  sendBtn.addEventListener("click", () =>
-    sendMessage(conversations, activeChatId),
-  );
+  sendBtn.addEventListener("click", () => sendMessage());
   input.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
-      sendMessage(conversations, activeChatId);
+      sendMessage();
     }
   });
 }
 
-function sendMessage(conversations, activeChatId) {
+function sendMessage() {
+  const [conversations, activeChatId] = loadFromStorage();
   const input = document.getElementById("message-input");
   const text = input.value.trim();
   if (text !== "") {
@@ -27,8 +26,9 @@ function sendMessage(conversations, activeChatId) {
       }),
       isMe: true,
     });
-    renderMessages(conversations, activeChatId);
-    renderSideBar(conversations, activeChatId);
+    saveToStorage(conversations, activeChatId);
+    renderMessages();
+    renderSideBar();
     input.value = "";
     input.focus();
   }
