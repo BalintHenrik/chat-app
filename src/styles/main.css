@@ -1,7 +1,7 @@
 @import "./components/chatBody.css";
 
 #chat {
-  height: 85vh;
+  height: 80vh;
 }
 
 #chat-body {
