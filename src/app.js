@@ -27,7 +27,7 @@ const conversations = {
     ],
   },
   4: {
-    name: "Diana Prince",
+    name: "Alice Prince",
     messages: [],
   },
 };

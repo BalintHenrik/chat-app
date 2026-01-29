@@ -4,24 +4,33 @@ import { renderMessages } from "./chatBody.js";
 
 export function renderSideBar() {
   let [conversations, activeChatId] = loadFromStorage();
+  renderSideBarItems(conversations, activeChatId);
+
+  const searchInput = document.getElementById("search-input");
+  searchInput.addEventListener("input", (event) => {
+    const searchTerm = event.target.value.toLowerCase();
+    renderSideBarItems(conversations, activeChatId, searchTerm);
+  });
+}
+
+function renderSideBarItems(conversations, activeChatId, searchTerm = "") {
   const sideBarList = document.documentElement.querySelector(".list-group");
   if (!sideBarList) return;
   clearElementChildren(sideBarList);
-
+  searchTerm = document.getElementById("search-input").value.toLowerCase();
   for (let id in conversations) {
     id = parseInt(id, 10);
     const chat = conversations[id];
-    const isActive = activeChatId === id ? "active" : "";
-
-    const item = createSideBarItem(chat, isActive);
-    item.onclick = () => {
-      activeChatId = id;
-      saveToStorage(conversations, activeChatId);
-      renderSideBar();
-      renderMessages();
-    };
-
-    sideBarList.appendChild(item);
+    if (chat.name.toLowerCase().includes(searchTerm)) {
+      const item = createSideBarItem(chat, activeChatId === id ? "active" : "");
+      item.onclick = () => {
+        activeChatId = id;
+        saveToStorage(conversations, activeChatId);
+        renderSideBar();
+        renderMessages();
+      };
+      sideBarList.appendChild(item);
+    }
   }
 }
 
