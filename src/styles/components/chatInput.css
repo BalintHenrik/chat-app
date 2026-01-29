@@ -1,0 +1,3 @@
+.emoji-tooltip:not(.shown) {
+  display: none;
+}
