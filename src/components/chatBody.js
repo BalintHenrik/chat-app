@@ -4,7 +4,9 @@ import { loadFromStorage } from "../utils/storage.js";
 export function renderMessages() {
   const [conversations, activeChatId] = loadFromStorage();
   const chatBody = document.getElementById("chat-body");
+  if (!chatBody) return;
   clearElementChildren(chatBody);
+
   const conversation = conversations[activeChatId];
   const headerName = document.querySelector(".chat-header-name");
   headerName.textContent = conversation.name;

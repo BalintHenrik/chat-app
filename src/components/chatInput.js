@@ -1,7 +1,6 @@
 import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm/index.js";
-import { loadFromStorage, saveToStorage } from "../utils/storage.js";
-import { renderMessages } from "./chatBody.js";
-import { renderSideBar } from "./sideBar.js";
+import { loadFromStorage } from "../utils/storage.js";
+import { socket } from "../utils/socket.js";
 
 export function chatInput() {
   const input = document.getElementById("message-input");
@@ -33,21 +32,20 @@ export function chatInput() {
 }
 
 function sendMessage() {
-  const [conversations, activeChatId] = loadFromStorage();
+  const [, activeChatId] = loadFromStorage();
   const input = document.getElementById("message-input");
   const text = input.value.trim();
   if (text !== "") {
-    conversations[activeChatId].messages.push({
+    const messageData = {
       text: text,
       time: new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       }),
-      isMe: true,
-    });
-    saveToStorage(conversations, activeChatId);
-    renderMessages();
-    renderSideBar();
+      roomId: activeChatId,
+      socketId: socket.id,
+    };
+    socket.emit("chat message", messageData);
     input.value = "";
     input.focus();
   }

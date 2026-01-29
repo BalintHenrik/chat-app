@@ -1,6 +1,7 @@
 import { clearElementChildren } from "../utils/dom.js";
 import { loadFromStorage, saveToStorage } from "../utils/storage.js";
 import { renderMessages } from "./chatBody.js";
+import { socket } from "../utils/socket.js";
 
 export function renderSideBar() {
   let [conversations, activeChatId] = loadFromStorage();
@@ -17,6 +18,7 @@ function renderSideBarItems(conversations, activeChatId, searchTerm = "") {
   const sideBarList = document.documentElement.querySelector(".list-group");
   if (!sideBarList) return;
   clearElementChildren(sideBarList);
+
   searchTerm = document.getElementById("search-input").value.toLowerCase();
   for (let id in conversations) {
     id = parseInt(id, 10);
@@ -25,7 +27,9 @@ function renderSideBarItems(conversations, activeChatId, searchTerm = "") {
       const item = createSideBarItem(chat, activeChatId === id ? "active" : "");
       item.onclick = () => {
         activeChatId = id;
+        socket.emit("join room", activeChatId);
         saveToStorage(conversations, activeChatId);
+
         renderSideBar();
         renderMessages();
       };

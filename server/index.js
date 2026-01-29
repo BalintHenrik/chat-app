@@ -21,9 +21,15 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
   console.log("A user connected:", socket.id);
 
+  socket.on("join room", (roomId) => {
+    socket.join(roomId);
+    console.log(`User ${socket.id} joined room: ${roomId}`);
+  });
+
   socket.on("chat message", (msg) => {
     console.log("Message received:", msg);
-    io.emit("chat message", msg);
+    console.log(`Broadcasting to room: ${msg.roomId}`);
+    io.to(msg.roomId).emit("chat message", msg);
   });
 
   socket.on("disconnect", () => {

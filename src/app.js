@@ -1,7 +1,24 @@
 import { chatInput } from "./components/chatInput.js";
 import { renderMessages } from "./components/chatBody.js";
 import { renderSideBar } from "./components/sideBar.js";
-import { saveToStorage } from "./utils/storage.js";
+import { loadFromStorage, saveToStorage } from "./utils/storage.js";
+import { socket } from "./utils/socket.js";
+
+socket.on("chat message", (msg) => {
+  let [conversations, activeChatId] = loadFromStorage();
+
+  const isMe = msg.socketId === socket.id;
+  const incomingMsg = { text: msg.text, time: msg.time, isMe: isMe };
+  console.log("Incoming message", incomingMsg);
+
+  conversations[msg.roomId].messages.push(incomingMsg);
+  saveToStorage(conversations, activeChatId);
+
+  if (msg.roomId === activeChatId) {
+    renderMessages();
+  }
+  renderSideBar();
+});
 
 const conversations = {
   1: {
@@ -34,6 +51,7 @@ const conversations = {
 
 function app(conversations) {
   saveToStorage(conversations, 1);
+  socket.emit("join room", 1);
   renderSideBar();
   chatInput();
   renderMessages();
