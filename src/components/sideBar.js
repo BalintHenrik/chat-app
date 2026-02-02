@@ -21,8 +21,8 @@ function renderSideBarItems(conversations, activeChatId, searchTerm = "") {
 
   searchTerm = document.getElementById("search-input").value.toLowerCase();
   for (let id in conversations) {
-    id = parseInt(id, 10);
     const chat = conversations[id];
+
     if (chat.name.toLowerCase().includes(searchTerm)) {
       const item = createSideBarItem(chat, activeChatId === id ? "active" : "");
       item.onclick = () => {

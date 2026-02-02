@@ -1,13 +1,19 @@
-const CONVERSATIONS_KEY = "conversations";
+import { socket } from "./socket.js";
 
-let sessionActiveChatId = 1;
+const CONVERSATIONS_KEY = "conversations";
+const ACTIVE_ID_KEY = "active_id";
 
 export function saveToStorage(conversations, activeChatId) {
   try {
-    localStorage.setItem(CONVERSATIONS_KEY, JSON.stringify(conversations));
-    if (activeChatId !== undefined) {
-      sessionActiveChatId = activeChatId;
+    if (!socket.id) {
+      console.error("Socket ID is required to save conversations");
+      return;
     }
+    localStorage.setItem(
+      `${CONVERSATIONS_KEY}_${socket.id}`,
+      JSON.stringify(conversations),
+    );
+    localStorage.setItem(`${ACTIVE_ID_KEY}_${socket.id}`, activeChatId);
   } catch (error) {
     console.error("Failed to save history to localStorage", error);
   }
@@ -15,11 +21,25 @@ export function saveToStorage(conversations, activeChatId) {
 
 export function loadFromStorage() {
   try {
-    const rawMap = localStorage.getItem(CONVERSATIONS_KEY);
-    const map = rawMap ? JSON.parse(rawMap) : null;
-    return [map, sessionActiveChatId];
+    if (!socket.id) {
+      console.error("Socket ID is required to load conversations");
+      return {};
+    }
+    const rawMap = localStorage.getItem(`${CONVERSATIONS_KEY}_${socket.id}`);
+    const map = rawMap ? JSON.parse(rawMap) : {};
+    const activeChatId = localStorage.getItem(`${ACTIVE_ID_KEY}_${socket.id}`);
+    return [map, activeChatId];
   } catch (error) {
     console.error("Failed to load history from localStorage", error);
-    return {};
+    return [];
+  }
+}
+
+export function deleteStorage() {
+  try {
+    localStorage.removeItem(`${CONVERSATIONS_KEY}_${socket.id}`);
+    localStorage.removeItem(`${ACTIVE_ID_KEY}_${socket.id}`);
+  } catch (error) {
+    console.error("Failed to delete history from localStorage", error);
   }
 }

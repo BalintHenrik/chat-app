@@ -7,16 +7,18 @@ export function renderMessages() {
   if (!chatBody) return;
   clearElementChildren(chatBody);
 
-  const conversation = conversations[activeChatId];
-  const headerName = document.querySelector(".chat-header-name");
-  headerName.textContent = conversation.name;
+  if (conversations[activeChatId]) {
+    const conversation = conversations[activeChatId];
+    const headerName = document.querySelector(".chat-header-name");
+    headerName.textContent = conversation.name;
 
-  conversation.messages.forEach((msg) => {
-    const msgDiv = createMessage(msg);
-    if (msgDiv) {
-      chatBody.appendChild(msgDiv);
-    }
-  });
+    conversation.messages.forEach((msg) => {
+      const msgDiv = createMessage(msg);
+      if (msgDiv) {
+        chatBody.appendChild(msgDiv);
+      }
+    });
+  }
 
   chatBody.scrollTop = chatBody.scrollHeight;
 }

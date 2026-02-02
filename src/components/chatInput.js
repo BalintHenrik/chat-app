@@ -2,13 +2,13 @@ import * as Popper from "https://cdn.jsdelivr.net/npm/@popperjs/core@^2/dist/esm
 import { loadFromStorage } from "../utils/storage.js";
 import { socket } from "../utils/socket.js";
 
-export function chatInput() {
+export function chatInput(currentUser) {
   const input = document.getElementById("message-input");
   const sendBtn = document.getElementById("send-btn");
-  sendBtn.addEventListener("click", () => sendMessage());
+  sendBtn.addEventListener("click", () => sendMessage(currentUser));
   input.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
-      sendMessage();
+      sendMessage(currentUser);
     }
   });
 
@@ -31,7 +31,7 @@ export function chatInput() {
   });
 }
 
-function sendMessage() {
+function sendMessage(currentUser) {
   const [, activeChatId] = loadFromStorage();
   const input = document.getElementById("message-input");
   const text = input.value.trim();
@@ -42,6 +42,7 @@ function sendMessage() {
         hour: "2-digit",
         minute: "2-digit",
       }),
+      sender: currentUser,
       roomId: activeChatId,
       socketId: socket.id,
     };

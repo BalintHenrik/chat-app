@@ -12,6 +12,9 @@ const io = new Server(server);
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
+// tracking users
+const users = {};
+
 app.use(express.static(path.join(__dirname, "../")));
 
 app.get("/", (req, res) => {
@@ -19,7 +22,11 @@ app.get("/", (req, res) => {
 });
 
 io.on("connection", (socket) => {
-  console.log("A user connected:", socket.id);
+  socket.on("register user", (username) => {
+    users[socket.id] = username;
+    io.emit("user list", users);
+    console.log(`A user connected: ${socket.id} - ${username}`);
+  });
 
   socket.on("join room", (roomId) => {
     socket.join(roomId);
@@ -29,11 +36,15 @@ io.on("connection", (socket) => {
   socket.on("chat message", (msg) => {
     console.log("Message received:", msg);
     console.log(`Broadcasting to room: ${msg.roomId}`);
+    msg.socketId = socket.id;
     io.to(msg.roomId).emit("chat message", msg);
   });
 
   socket.on("disconnect", () => {
-    console.log("A user disconnected");
+    const username = users[socket.id];
+    console.log(`User disconnected: ${username}`);
+    delete users[socket.id];
+    io.emit("user list", users);
   });
 });
 
