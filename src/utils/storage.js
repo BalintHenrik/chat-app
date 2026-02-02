@@ -27,7 +27,10 @@ export function loadFromStorage() {
     }
     const rawMap = localStorage.getItem(`${CONVERSATIONS_KEY}_${socket.id}`);
     const map = rawMap ? JSON.parse(rawMap) : {};
-    const activeChatId = localStorage.getItem(`${ACTIVE_ID_KEY}_${socket.id}`);
+    let activeChatId = localStorage.getItem(`${ACTIVE_ID_KEY}_${socket.id}`);
+    if (activeChatId === "null" || activeChatId === "undefined") {
+      activeChatId = null;
+    }
     return [map, activeChatId];
   } catch (error) {
     console.error("Failed to load history from localStorage", error);

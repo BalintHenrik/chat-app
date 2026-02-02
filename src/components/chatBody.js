@@ -3,6 +3,11 @@ import { loadFromStorage } from "../utils/storage.js";
 
 export function renderMessages() {
   const [conversations, activeChatId] = loadFromStorage();
+  const chatSection = document.getElementById("chat-section");
+  if (activeChatId) {
+    chatSection.classList.remove("hidden");
+  }
+
   const chatBody = document.getElementById("chat-body");
   if (!chatBody) return;
   clearElementChildren(chatBody);
