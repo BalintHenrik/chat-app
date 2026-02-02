@@ -1,2 +1,3 @@
 # chat-app
-<img width="1443" height="966" alt="image" src="https://github.com/user-attachments/assets/24d4746c-01f8-4cf4-a6ac-f1a905205c97" />
+<img width="1890" height="927" alt="Screenshot 2026-02-02 at 13 15 37" src="https://github.com/user-attachments/assets/c148e3c5-9de2-40a7-912c-f0caf895227b" />
+
