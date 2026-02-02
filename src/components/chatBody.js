@@ -3,18 +3,27 @@ import { loadFromStorage } from "../utils/storage.js";
 
 export function renderMessages() {
   const [conversations, activeChatId] = loadFromStorage();
-  const chatBody = document.getElementById("chat-body");
-  clearElementChildren(chatBody);
-  const conversation = conversations[activeChatId];
-  const headerName = document.querySelector(".chat-header-name");
-  headerName.textContent = conversation.name;
+  const chatSection = document.getElementById("chat-section");
+  if (activeChatId) {
+    chatSection.classList.remove("hidden");
+  }
 
-  conversation.messages.forEach((msg) => {
-    const msgDiv = createMessage(msg);
-    if (msgDiv) {
-      chatBody.appendChild(msgDiv);
-    }
-  });
+  const chatBody = document.getElementById("chat-body");
+  if (!chatBody) return;
+  clearElementChildren(chatBody);
+
+  if (conversations[activeChatId]) {
+    const conversation = conversations[activeChatId];
+    const headerName = document.querySelector(".chat-header-name");
+    headerName.textContent = conversation.name;
+
+    conversation.messages.forEach((msg) => {
+      const msgDiv = createMessage(msg);
+      if (msgDiv) {
+        chatBody.appendChild(msgDiv);
+      }
+    });
+  }
 
   chatBody.scrollTop = chatBody.scrollHeight;
 }

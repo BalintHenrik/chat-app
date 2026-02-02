@@ -1,0 +1,25 @@
+{
+  "name": "chat-app",
+  "version": "1.0.0",
+  "description": "<img width=\"1443\" height=\"966\" alt=\"image\" src=\"https://github.com/user-attachments/assets/24d4746c-01f8-4cf4-a6ac-f1a905205c97\" />",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "watch": "nodemon server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BalintHenrik/chat-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BalintHenrik/chat-app/issues"
+  },
+  "homepage": "https://github.com/BalintHenrik/chat-app#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3"
+  }
+}

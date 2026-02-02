@@ -15,6 +15,41 @@
   </head>
 
   <body>
+    <div
+      class="modal fade"
+      id="login-modal"
+      data-bs-backdrop="static"
+      data-bs-keyboard="false"
+      tabindex="-1"
+      aria-labelledby="login-modal-label"
+      aria-hidden="true"
+      focus="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="login-modal-label">
+              Enter your username
+            </h1>
+          </div>
+          <div class="modal-body input-group mb-3">
+            <input
+              type="text"
+              id="username-input"
+              class="form-control"
+              placeholder="Username"
+              aria-label="Username"
+              required="true"
+            />
+          </div>
+          <div class="modal-footer">
+            <button type="button" id="username-submit" class="btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="container">
       <header
         class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
@@ -59,7 +94,10 @@
             ></div>
           </div>
 
-          <div class="flex-grow-1 d-flex flex-column bg-body-tertiary">
+          <div
+            id="chat-section"
+            class="flex-grow-1 d-flex flex-column bg-body-tertiary hidden"
+          >
             <div class="p-3 border-bottom">
               <h3 class="chat-header-name mb-0 fs-4"></h3>
               <small class="text-success">Online</small>
@@ -121,6 +159,7 @@
       type="module"
       src="https://cdn.jsdelivr.net/npm/emoji-picker-element@^1/index.js"
     ></script>
+    <script src="/socket.io/socket.io.js"></script>
     <script src="src/app.js" type="module"></script>
   </body>
 </html>
